@@ -14,7 +14,7 @@ It is easy to read and convert to another format if needed
 
 ## Download
 
-Download latest from [Releases](https://github.com/brutalbeatdown/keypirinha-quicknote-markdown)
+Download latest from [Releases](https://github.com/brutalbeatdown/keypirinha-quicknote-markdown/releases)
 
 
 ## Install
