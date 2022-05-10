@@ -19,10 +19,10 @@ class quicknote_markdown(kp.Plugin):
     ADD_QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 20
 
     FINISH_QUICKNOTE_NAME = "finish"
-    FINISH_QUICKNOTE_LABEL = "Finish the Note"
+    FINISH_QUICKNOTE_LABEL = "Mark last note as Reviewed"
 
     DELETE_QUICKNOTE_NAME = "delete"
-    DELETE_QUICKNOTE_LABEL = "Delete the Note"
+    DELETE_QUICKNOTE_LABEL = "Delete last Note"
 
     _quicknotes = []
 
@@ -87,7 +87,7 @@ class quicknote_markdown(kp.Plugin):
             suggestions.append(
                 self.create_item(
                     category=self.ADD_QUICKNOTE_CAT,
-                    label="Add as quicknote: '{}'".format(user_input),
+                    label="Add a  new Note: '{}'".format(user_input),
                     short_desc=target,
                     target=target,
                     args_hint=kp.ItemArgsHint.FORBIDDEN,
