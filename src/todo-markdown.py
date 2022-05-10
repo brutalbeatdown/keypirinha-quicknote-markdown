@@ -9,10 +9,9 @@ import textwrap
 
 class quicknote_markdown(kp.Plugin):
     """
-    Manages Notes in a Markdown file
+    Manages quicknotes in a Markdown file
 
-    Plugin that gives you the ability to 
-    add/delete Notess that are stored in a markdown file
+    Plugin that gives you the ability to /finish/delete quicknotes that are stored in a markdown file
     """
 
     QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 10
@@ -34,7 +33,6 @@ class quicknote_markdown(kp.Plugin):
 
         # It's the folder FOLDERID_Documents ("%USERPROFILE%\Documents")
         # https://docs.microsoft.com/sv-se/windows/win32/shell/knownfolderid?redirectedfrom=MSDN
-        
         default_path = kpu.shell_known_folder_path(
             "{FDD39AD0-238F-46AF-ADB4-6C85480369C7}"
         )
@@ -43,7 +41,7 @@ class quicknote_markdown(kp.Plugin):
         )
 
         if os.path.isdir(self._filepath):
-            self._filepath = os.path.join(self._filepath, "QuickNote.md")
+            self._filepath = os.path.join(self._filepath, "quicknote.md")
 
     def on_start(self):
         self._debug = False
@@ -53,12 +51,12 @@ class quicknote_markdown(kp.Plugin):
             self.create_action(
                 name=self.FINISH_QUICKNOTE_NAME,
                 label=self.FINISH_QUICKNOTE_LABEL,
-                short_desc="Finish the Note"
+                short_desc="Finish the quicknote"
             ),
             self.create_action(
                 name=self.DELETE_QUICKNOTE_NAME,
                 label=self.DELETE_QUICKNOTE_LABEL,
-                short_desc="Removes the Note completely"
+                short_desc="Removes the quicknote completely"
             ),
         ])
 
@@ -67,8 +65,8 @@ class quicknote_markdown(kp.Plugin):
 
         catalog.append(self.create_item(
             category=kp.ItemCategory.KEYWORD,
-            label="QuickNote",
-            short_desc="Manages Notes",
+            label="quicknote",
+            short_desc="Manages quicknotes",
             target="quicknote",
             args_hint=kp.ItemArgsHint.REQUIRED,
             hit_hint=kp.ItemHitHint.KEEPALL
@@ -88,7 +86,7 @@ class quicknote_markdown(kp.Plugin):
             suggestions.append(
                 self.create_item(
                     category=self.ADD_QUICKNOTE_CAT,
-                    label="Add as Note: '{}'".format(user_input),
+                    label="Add as a Note: '{}'".format(user_input),
                     short_desc=target,
                     target=target,
                     args_hint=kp.ItemArgsHint.FORBIDDEN,
@@ -138,7 +136,7 @@ class quicknote_markdown(kp.Plugin):
                 newlines = []
                 for line in f.readlines():
                     if quicknote in line:
-                        newlines.append(line.replace("-", " -", 1))
+                        newlines.append(line.replace("[ ]", "[X]", 1))
                     else:
                         newlines.append(line)
 
@@ -151,7 +149,7 @@ class quicknote_markdown(kp.Plugin):
     def _add_quicknote(self, quicknote):
         try:
             with open(self._filepath, 'a+', encoding="utf-8") as f:
-                f.write("\n---\n- {}".format(quicknote))
+                f.write("\n---\n- [ ] {}".format(quicknote))
         except Exception as e:
             self.err(e)
 
