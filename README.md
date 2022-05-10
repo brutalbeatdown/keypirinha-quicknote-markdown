@@ -4,13 +4,10 @@ This is quicknote_markdown, a plugin for the [Keypirinha](http://keypirinha.com)
 
 This is a fork of [todo-markdown](https://github.com/TimberToe/keypirinha-todo-markdown) by [TimberToe](https://github.com/TimberToe/). I just changed a few lines of code to make it suitable for writing down Notes intstead of Todos. Think of it as an extended clipboard. I use it to copy text and paste it into a mardown file for later review. This way I dont have to open the markdown editor.
 
-A plugin to easily add/finish/list Quick Notes in a Markdown file.
+A plugin to easily Add/Review/List Quick Notes in a Markdown file.
 
 I use a markdown file to jolt down small notes over the day.
-Since I use Keypirinha for everything else, why not as as shortcut to my quicknote list!
-
-Since it is an markdown file it is easy to sync between computers through your cloud storage.
-It is easy to read and convert to another format if needed
+Since I use Keypirinha for everything else, why not as as shortcut to add my Notes!
 
 ## Download
 
