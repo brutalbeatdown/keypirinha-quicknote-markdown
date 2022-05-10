@@ -11,7 +11,8 @@ class quicknote_markdown(kp.Plugin):
     """
     Manages quicknotes in a Markdown file
 
-    Plugin that gives you the ability to /finish/delete quicknotes that are stored in a markdown file
+    Plugin that gives you the ability to 
+    add/finish/delete quicknotes that are stored in a markdown file
     """
 
     QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 10
@@ -86,7 +87,7 @@ class quicknote_markdown(kp.Plugin):
             suggestions.append(
                 self.create_item(
                     category=self.ADD_QUICKNOTE_CAT,
-                    label="Add as a Note: '{}'".format(user_input),
+                    label="Add as quicknote: '{}'".format(user_input),
                     short_desc=target,
                     target=target,
                     args_hint=kp.ItemArgsHint.FORBIDDEN,
@@ -136,7 +137,7 @@ class quicknote_markdown(kp.Plugin):
                 newlines = []
                 for line in f.readlines():
                     if quicknote in line:
-                        newlines.append(line.replace("[ ]", "[X]", 1))
+                        newlines.append(line.replace("[ ]", "[X] Reviewed\n \t -", 1))
                     else:
                         newlines.append(line)
 
