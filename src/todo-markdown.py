@@ -9,10 +9,10 @@ import textwrap
 
 class quicknote_markdown(kp.Plugin):
     """
-    Manages Notess in a Markdown file
+    Manages Notes in a Markdown file
 
     Plugin that gives you the ability to 
-    add/finish/delete Notess that are stored in a markdown file
+    add/delete Notess that are stored in a markdown file
     """
 
     QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 10
