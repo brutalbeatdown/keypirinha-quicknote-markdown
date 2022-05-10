@@ -1,24 +1,25 @@
-# Keypirinha Plugin: todo-markdown
+# Keypirinha Plugin: quicknote_markdown
 
-This is todo-markdown, a plugin for the
-[Keypirinha](http://keypirinha.com) launcher.
+This is quicknote_markdown, a plugin for the [Keypirinha](http://keypirinha.com) launcher.
 
-A plugin to easily add/finish/list todos in a Markdown file.
+This is a fork of [todo-markdown](https://github.com/TimberToe/keypirinha-todo-markdown) by [TimberToe](https://github.com/TimberToe/). I just changed a few lines of code to make it suitable for writing down Notes intstead of Todos. Think of it as an extended clipboard. I use it to copy text and paste it into a mardown file for later review. This way I dont have to open the markdown editor.
 
-I use a markdown file to jolt down small reminders over the day.
-Since I use Keypirinha for everything else, why not as as shortcut to my todo list!
+A plugin to easily add/finish/list Quick Notes in a Markdown file.
+
+I use a markdown file to jolt down small notes over the day.
+Since I use Keypirinha for everything else, why not as as shortcut to my quicknote list!
 
 Since it is an markdown file it is easy to sync between computers through your cloud storage.
 It is easy to read and convert to another format if needed
 
 ## Download
 
-Download latest from [Releases](https://github.com/TimberToe/keypirinha-todo-markdown/releases)
+Download latest from [Releases](https://github.com/brutalbeatdown/keypirinha-quicknote-markdown)
 
 
 ## Install
 
-Once the `todo-markdown.keypirinha-package` file is installed,
+Once the `quicknote_markdown.keypirinha-package` file is installed,
 move it to the `InstalledPackage` folder located at:
 
 * `Keypirinha\portable\Profile\InstalledPackages` in **Portable mode**
@@ -30,13 +31,13 @@ move it to the `InstalledPackage` folder located at:
 ## Usage
 
 You will be able to:
- - Add todos
- - Finish todos
- - Remove todos
- - List todos
+ - Add quicknotes
+ - Finish quicknotes
+ - Remove quicknotes
+ - List quicknotes
 
-Start by searching for "Todo" i Keypirinha and you will find the top cataglog item "Todo" that everything is filed under. 
-Select it to see a list of all the available todos. The list is searchable and if your search term doesn't exist you will be given the option to create a new todo. Manage individual todos by selecting one and pressing tab.
+Start by searching for "quicknote" in Keypirinha and you will find the top cataglog item "QuickNote" that everything is filed under. 
+Select it to see a list of all the available quicknotes. The list is searchable and if your search term doesn't exist you will be given the option to create a new quicknote. Manage individual quicknotes by selecting one and pressing tab.
 
 ## License
 This package is distributed under the terms of the MIT license.
