@@ -19,10 +19,10 @@ class quicknote_markdown(kp.Plugin):
     ADD_QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 20
 
     FINISH_QUICKNOTE_NAME = "finish"
-    FINISH_QUICKNOTE_LABEL = "Finish the Todo"
+    FINISH_QUICKNOTE_LABEL = "Finish the Note"
 
     DELETE_QUICKNOTE_NAME = "delete"
-    DELETE_QUICKNOTE_LABEL = "Delete the Todo"
+    DELETE_QUICKNOTE_LABEL = "Delete the Note"
 
     _quicknotes = []
 
