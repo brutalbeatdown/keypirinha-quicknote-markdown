@@ -7,24 +7,24 @@ import re
 import textwrap
 
 
-class todo_markdown(kp.Plugin):
+class quicknote_markdown(kp.Plugin):
     """
-    Manages todos in a Markdown file
+    Manages Notess in a Markdown file
 
     Plugin that gives you the ability to 
-    add/finish/delete todos that are stored in a markdown file
+    add/finish/delete Notess that are stored in a markdown file
     """
 
-    TODO_CAT = kp.ItemCategory.USER_BASE + 10
-    ADD_TODO_CAT = kp.ItemCategory.USER_BASE + 20
+    QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 10
+    ADD_QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 20
 
-    FINISH_TODO_NAME = "finish"
-    FINISH_TODO_LABEL = "Finish the Todo"
+    FINISH_QUICKNOTE_NAME = "finish"
+    FINISH_QUICKNOTE_LABEL = "Finish the Todo"
 
-    DELETE_TODO_NAME = "delete"
-    DELETE_TODO_LABEL = "Delete the Todo"
+    DELETE_QUICKNOTE_NAME = "delete"
+    DELETE_QUICKNOTE_LABEL = "Delete the Todo"
 
-    _todos = []
+    _quicknotes = []
 
     def __init__(self):
         super().__init__()
@@ -34,6 +34,7 @@ class todo_markdown(kp.Plugin):
 
         # It's the folder FOLDERID_Documents ("%USERPROFILE%\Documents")
         # https://docs.microsoft.com/sv-se/windows/win32/shell/knownfolderid?redirectedfrom=MSDN
+        
         default_path = kpu.shell_known_folder_path(
             "{FDD39AD0-238F-46AF-ADB4-6C85480369C7}"
         )
@@ -42,22 +43,22 @@ class todo_markdown(kp.Plugin):
         )
 
         if os.path.isdir(self._filepath):
-            self._filepath = os.path.join(self._filepath, "todo.md")
+            self._filepath = os.path.join(self._filepath, "QuickNote.md")
 
     def on_start(self):
         self._debug = False
         self._read_config()
 
-        self.set_actions(self.TODO_CAT, [
+        self.set_actions(self.QUICKNOTE_CAT, [
             self.create_action(
-                name=self.FINISH_TODO_NAME,
-                label=self.FINISH_TODO_LABEL,
-                short_desc="Finish the todo"
+                name=self.FINISH_QUICKNOTE_NAME,
+                label=self.FINISH_QUICKNOTE_LABEL,
+                short_desc="Finish the Note"
             ),
             self.create_action(
-                name=self.DELETE_TODO_NAME,
-                label=self.DELETE_TODO_LABEL,
-                short_desc="Removes the todo completely"
+                name=self.DELETE_QUICKNOTE_NAME,
+                label=self.DELETE_QUICKNOTE_LABEL,
+                short_desc="Removes the Note completely"
             ),
         ])
 
@@ -66,9 +67,9 @@ class todo_markdown(kp.Plugin):
 
         catalog.append(self.create_item(
             category=kp.ItemCategory.KEYWORD,
-            label="Todo",
-            short_desc="Manages todos",
-            target="todo",
+            label="QuickNote",
+            short_desc="Manages Notes",
+            target="quicknote",
             args_hint=kp.ItemArgsHint.REQUIRED,
             hit_hint=kp.ItemHitHint.KEEPALL
         ))
@@ -80,14 +81,14 @@ class todo_markdown(kp.Plugin):
         if not items_chain:
             return
 
-        suggestions = self._todos[:]
+        suggestions = self._quicknotes[:]
 
         if user_input:
             target = user_input.strip().format(q=user_input.strip())
             suggestions.append(
                 self.create_item(
-                    category=self.ADD_TODO_CAT,
-                    label="Add as todo: '{}'".format(user_input),
+                    category=self.ADD_QUICKNOTE_CAT,
+                    label="Add as Note: '{}'".format(user_input),
                     short_desc=target,
                     target=target,
                     args_hint=kp.ItemArgsHint.FORBIDDEN,
@@ -99,26 +100,26 @@ class todo_markdown(kp.Plugin):
         self.set_suggestions(suggestions, kp.Match.DEFAULT, kp.Sort.NONE)
 
     def on_execute(self, item, action):
-        if item.category() == self.ADD_TODO_CAT:
-            self._add_todo(item.short_desc())
+        if item.category() == self.ADD_QUICKNOTE_CAT:
+            self._add_quicknote(item.short_desc())
 
-        if item and item.category() == self.TODO_CAT:
-            if action and action.name() == self.FINISH_TODO_NAME:
-                self._finish_todo(item.label())
-            if action and action.name() == self.DELETE_TODO_NAME:
-                self._delete_todo(item.label())
+        if item and item.category() == self.QUICKNOTE_CAT:
+            if action and action.name() == self.FINISH_QUICKNOTE_NAME:
+                self._finish_quicknote(item.label())
+            if action and action.name() == self.DELETE_QUICKNOTE_NAME:
+                self._delete_quicknote(item.label())
 
     def on_activated(self):
         try:
             with open(self._filepath, "r", encoding="utf-8") as f:
                 markdown = f.read()
 
-                self._todos = []
-                todos = self._fetch_all_open_todos(markdown)
+                self._quicknotes = []
+                quicknotes = self._fetch_all_open_quicknotes(markdown)
 
-                for todo in todos:
-                    self._todos.append(self._create_suggestion(
-                        todo.split("]")[1]
+                for quicknote in quicknotes:
+                    self._quicknotes.append(self._create_suggestion(
+                        quicknote.split("]")[1]
                     ))
         except FileNotFoundError as e:
             self.warn(e)
@@ -127,17 +128,17 @@ class todo_markdown(kp.Plugin):
         if flags & kp.Events.PACKCONFIG:
             self._read_config()
 
-    def _fetch_all_open_todos(self, markdown):
+    def _fetch_all_open_quicknotes(self, markdown):
         regex = r'\[[[ ]*\].+'
         return re.findall(regex, markdown)
 
-    def _finish_todo(self, todo):
+    def _finish_quicknote(self, quicknote):
         try:
             with open(self._filepath, 'r', encoding="utf-8") as f:
                 newlines = []
                 for line in f.readlines():
-                    if todo in line:
-                        newlines.append(line.replace("[ ]", "[X]", 1))
+                    if quicknote in line:
+                        newlines.append(line.replace("-", " -", 1))
                     else:
                         newlines.append(line)
 
@@ -147,19 +148,19 @@ class todo_markdown(kp.Plugin):
         except Exception as e:
             self.err(e)
 
-    def _add_todo(self, todo):
+    def _add_quicknote(self, quicknote):
         try:
             with open(self._filepath, 'a+', encoding="utf-8") as f:
-                f.write("\n- [ ] {}".format(todo))
+                f.write("\n---\n- {}".format(quicknote))
         except Exception as e:
             self.err(e)
 
-    def _delete_todo(self, todo):
+    def _delete_quicknote(self, quicknote):
         try:
             with open(self._filepath, 'r', encoding="utf-8") as f:
                 newlines = []
                 for line in f.readlines():
-                    if todo not in line:
+                    if quicknote not in line:
                         newlines.append(line)
             with open(self._filepath, 'w', encoding="utf-8") as f:
                 for line in newlines:
@@ -173,7 +174,7 @@ class todo_markdown(kp.Plugin):
         label = text.pop(0)
 
         return self.create_item(
-            category=self.TODO_CAT,
+            category=self.QUICKNOTE_CAT,
             label=label,
             short_desc="".join(text),
             target=item.strip().format(q=item.strip()),
