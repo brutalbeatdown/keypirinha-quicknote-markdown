@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set PACKAGE_NAME=quicknote_markdown
+set PACKAGE_NAME=quicknote_md
 set INSTALL_DIR=C:\Program Files\Keypirinha\portable\Profile\InstalledPackages
 
 if "%1"=="" goto help
