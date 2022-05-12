@@ -180,3 +180,5 @@ class quicknote_md(kp.Plugin):
             args_hint=kp.ItemArgsHint.FORBIDDEN,
             hit_hint=kp.ItemHitHint.IGNORE,
         )
+
+    
