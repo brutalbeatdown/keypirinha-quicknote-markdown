@@ -7,22 +7,22 @@ import re
 import textwrap
 
 
-class quicknote_md(kp.Plugin):
+class quicknote_markdown(kp.Plugin):
     """
     Manages quicknotes in a Markdown file
 
     Plugin that gives you the ability to 
-    add/review/delete quicknotes that are stored in a markdown file
+    add/finish/delete quicknotes that are stored in a markdown file
     """
 
     QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 10
     ADD_QUICKNOTE_CAT = kp.ItemCategory.USER_BASE + 20
 
-    REVIEW_QUICKNOTE_NAME = "review"
-    REVIEW_QUICKNOTE_LABEL = "Mark Reviewed"
+    FINISH_QUICKNOTE_NAME = "finish"
+    FINISH_QUICKNOTE_LABEL = "Mark Reviewed"
 
     DELETE_QUICKNOTE_NAME = "delete"
-    DELETE_QUICKNOTE_LABEL = "Delete Note"
+    DELETE_QUICKNOTE_LABEL = "Delete this Note"
 
     _quicknotes = []
 
@@ -50,9 +50,9 @@ class quicknote_md(kp.Plugin):
 
         self.set_actions(self.QUICKNOTE_CAT, [
             self.create_action(
-                name=self.REVIEW_QUICKNOTE_NAME,
-                label=self.REVIEW_QUICKNOTE_LABEL,
-                short_desc="Review the quicknote"
+                name=self.FINISH_QUICKNOTE_NAME,
+                label=self.FINISH_QUICKNOTE_LABEL,
+                short_desc="Finish the quicknote"
             ),
             self.create_action(
                 name=self.DELETE_QUICKNOTE_NAME,
@@ -103,8 +103,8 @@ class quicknote_md(kp.Plugin):
             self._add_quicknote(item.short_desc())
 
         if item and item.category() == self.QUICKNOTE_CAT:
-            if action and action.name() == self.REVIEW_QUICKNOTE_NAME:
-                self._review_quicknote(item.label())
+            if action and action.name() == self.FINISH_QUICKNOTE_NAME:
+                self._finish_quicknote(item.label())
             if action and action.name() == self.DELETE_QUICKNOTE_NAME:
                 self._delete_quicknote(item.label())
 
@@ -131,7 +131,7 @@ class quicknote_md(kp.Plugin):
         regex = r'\[[[ ]*\].+'
         return re.findall(regex, markdown)
 
-    def _review_quicknote(self, quicknote):
+    def _finish_quicknote(self, quicknote):
         try:
             with open(self._filepath, 'r', encoding="utf-8") as f:
                 newlines = []
@@ -180,5 +180,3 @@ class quicknote_md(kp.Plugin):
             args_hint=kp.ItemArgsHint.FORBIDDEN,
             hit_hint=kp.ItemHitHint.IGNORE,
         )
-
-    
