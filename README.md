@@ -1,4 +1,4 @@
-# Keypirinha Plugin: quicknote_md
+# Keypirinha Plugin: quicknote-markdown
 
 This is quicknote_markdown, a plugin for the [Keypirinha](http://keypirinha.com) launcher.
 
