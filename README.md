@@ -37,10 +37,12 @@ Start by searching for "quicknote" in Keypirinha and you will find the top catag
 Select it to see a list of all the available quicknotes. The list is searchable and if your search term doesn't exist you will be given the option to create a new quicknote. Manage individual quicknotes by selecting one and pressing tab.
 
 ## License
+
 This package is distributed under the terms of the MIT license.
 
 
 ## Contribute
+
 1. Check for open issues or open a fresh issue to start a discussion around a
    feature idea or a bug.
 2. Fork this repository on GitHub to start making your changes
